@@ -11,6 +11,8 @@ int rowCounter;
 int colCounter;
 int radius = 15, directionX = 1, directionY =0;
 float x= 100, y=275, speed= 3;
+int blocker1Y = 0;
+int blocker1YSpeed = 1;
 
 void setup() {
   // Create a canvas with white background
@@ -164,120 +166,153 @@ void draw() {
   // Clear prior screen
   background(150);
 
-  //Blocker 1
+
+
+  //Blocker 
   // moving down
   // add to bottom
-  rowCounter = 19 + frameCount;//start
-  colCounter = 110;
-  while (colCounter < 130) {//end
-    board[rowCounter][colCounter] = 5;
-    colCounter += 1;
+
+  // make the block move
+  if (blocker1Y > 0) {
+    rowCounter = 20 + blocker1Y;//start
+    colCounter = 110;
+    while (colCounter < 130) {//end
+      board[rowCounter][colCounter] = 5;
+      colCounter += 1;
+    }
+    // clear at top
+    rowCounter = blocker1Y;//start
+    colCounter = 110;
+    println(blocker1Y);
+    while (colCounter < 130) {//end
+      board[rowCounter][colCounter] = 0;
+      colCounter += 1;
+    }
+  } else {
+    rowCounter = 20 + blocker1Y;//start
+    colCounter = 110;
+    while (colCounter < 130) {//end
+      board[rowCounter][colCounter] = 0;
+      colCounter += 1;
+    }
+    // clear at top
+    rowCounter = blocker1Y;//start
+    colCounter = 110;
+    println(blocker1Y);
+    while (colCounter < 130) {//end
+      board[rowCounter][colCounter] = 5;
+      colCounter += 1;
+    }
+    
   }
-  // clear at top
-  rowCounter = -1 + frameCount;//start
-  colCounter = 110;
-  while (colCounter < 130) {//end
-    board[rowCounter][colCounter] = 0;
-    colCounter += 1;
+  //update blocker 1 vertical position
+  //update acording to speed
+  blocker1Y = blocker1Y + blocker1YSpeed;
+  // println(blocker1Y);
+  if (blocker1Y > (158 + 20) || blocker1Y < (0)) {
+    blocker1Y = blocker1Y - blocker1YSpeed;
+    blocker1YSpeed = blocker1YSpeed * -1;
+    println("Change Direction");
   }
+
   //END 1
-
+  /*
     //Start 2
-  rowCounter = 19 + frameCount;//start
-  colCounter = 150;
-  while (colCounter < 170) {//end
-    board[rowCounter][colCounter] = 5;
-    colCounter += 1;
-  }
-  // clear at top
-  rowCounter = -1 + frameCount;//start
-  colCounter = 150;
-  while (colCounter < 170) {//end
-    board[rowCounter][colCounter] = 0;
-    colCounter += 1;
-  }
-  //End 2
-
-  //Start 3
-  rowCounter = 19 + frameCount;//start
-  colCounter = 190;
-  while (colCounter < 210) {//end
-    board[rowCounter][colCounter] = 5;
-    colCounter += 1;
-  }
-  // clear at top
-  rowCounter = -1 + frameCount;//start
-  colCounter = 190;
-  while (colCounter < 210) {//end
-    board[rowCounter][colCounter] = 0;
-    colCounter += 1;
-  }
-  //END 3
-
-  //Start 4
-  rowCounter = 19 + frameCount;//start
-  colCounter = 230;
-  while (colCounter < 250) {//end
-    board[rowCounter][colCounter] = 5;
-    colCounter += 1;
-  }
-  // clear at top
-  rowCounter = -1 + frameCount;//start
-  colCounter = 230;
-  while (colCounter < 250) {//end
-    board[rowCounter][colCounter] = 0;
-    colCounter += 1;
-  }
-  //END 4
-
-  //Start 5
-  rowCounter = 200 - frameCount;//start
-  colCounter = 130;
-  while (colCounter < 150) {//end
-    board[rowCounter][colCounter] = 5;
-    colCounter += 1;
-  }
-  // clear at top
-  rowCounter = 200 - frameCount;//start
-  colCounter = 130;
-  while (colCounter < 150) {//end
-    board[rowCounter][colCounter] = 0;
-    colCounter += 1;
-  }
-  //END 5
-  
-    //Start 6
-  rowCounter = 200 - frameCount;//start
-  colCounter = 170;
-  while (colCounter < 190) {//end
-    board[rowCounter][colCounter] = 5;
-    colCounter += 1;
-  }
-  // clear at top
-  rowCounter = 200 - frameCount;//start
-  colCounter = 170;
-  while (colCounter < 190) {//end
-    board[rowCounter][colCounter] = 0;
-    colCounter += 1;
-  }
-  //END 6
-  
-  //Start 7
-  rowCounter = 200 - frameCount;//start
-  colCounter = 210;
-  while (colCounter < 230) {//end
-    board[rowCounter][colCounter] = 5;
-    colCounter += 1;
-  }
-  // clear at top
-  rowCounter = 200 - frameCount;//start
-  colCounter = 210;
-  while (colCounter < 230) {//end
-    board[rowCounter][colCounter] = 0;
-    colCounter += 1;
-  }
-  //END 7
-
+   rowCounter = 19 + frameCount;//start
+   colCounter = 150;
+   while (colCounter < 170) {//end
+   board[rowCounter][colCounter] = 5;
+   colCounter += 1;
+   }
+   // clear at top
+   rowCounter = -1 + frameCount;//start
+   colCounter = 150;
+   while (colCounter < 170) {//end
+   board[rowCounter][colCounter] = 0;
+   colCounter += 1;
+   }
+   //End 2
+   
+   //Start 3
+   rowCounter = 19 + frameCount;//start
+   colCounter = 190;
+   while (colCounter < 210) {//end
+   board[rowCounter][colCounter] = 5;
+   colCounter += 1;
+   }
+   // clear at top
+   rowCounter = -1 + frameCount;//start
+   colCounter = 190;
+   while (colCounter < 210) {//end
+   board[rowCounter][colCounter] = 0;
+   colCounter += 1;
+   }
+   //END 3
+   
+   //Start 4
+   rowCounter = 19 + frameCount;//start
+   colCounter = 230;
+   while (colCounter < 250) {//end
+   board[rowCounter][colCounter] = 5;
+   colCounter += 1;
+   }
+   // clear at top
+   rowCounter = -1 + frameCount;//start
+   colCounter = 230;
+   while (colCounter < 250) {//end
+   board[rowCounter][colCounter] = 0;
+   colCounter += 1;
+   }
+   //END 4
+   
+   //Start 5
+   rowCounter = 200 - frameCount;//start
+   colCounter = 130;
+   while (colCounter < 150) {//end
+   board[rowCounter][colCounter] = 5;
+   colCounter += 1;
+   }
+   // clear at top
+   rowCounter = 200 - frameCount;//start
+   colCounter = 130;
+   while (colCounter < 150) {//end
+   board[rowCounter][colCounter] = 0;
+   colCounter += 1;
+   }
+   //END 5
+   
+   //Start 6
+   rowCounter = 200 - frameCount;//start
+   colCounter = 170;
+   while (colCounter < 190) {//end
+   board[rowCounter][colCounter] = 5;
+   colCounter += 1;
+   }
+   // clear at top
+   rowCounter = 200 - frameCount;//start
+   colCounter = 170;
+   while (colCounter < 190) {//end
+   board[rowCounter][colCounter] = 0;
+   colCounter += 1;
+   }
+   //END 6
+   
+   //Start 7
+   rowCounter = 200 - frameCount;//start
+   colCounter = 210;
+   while (colCounter < 230) {//end
+   board[rowCounter][colCounter] = 5;
+   colCounter += 1;
+   }
+   // clear at top
+   rowCounter = 200 - frameCount;//start
+   colCounter = 210;
+   while (colCounter < 230) {//end
+   board[rowCounter][colCounter] = 0;
+   colCounter += 1;
+   }
+   //END 7
+   */
   //Draws board
   loadPixels();  
   // Loop through every pixel column
