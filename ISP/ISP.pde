@@ -42,7 +42,7 @@ void setup() {
   size(500, 500);
   background(150);
 
-frameRate(5);
+
 
   // set color mode
   colorMode(HSB, 360, 100, 100);
@@ -363,8 +363,9 @@ void moveBlocker(int colStart, int ySpeed, int y) {
   // make the block move
   // down
   if (ySpeed > 0) {
+    // clear at bottom
     // println("moving down");
-    row = y + 20;//start
+    row = y + 21;//start
     col = colStart;
     while (col < colStart + 20) {//end
       board[row][col] = board[row][col] * BLOCKER;
