@@ -1,6 +1,17 @@
 //Matthew Pritchard
 //ISP V1
 //April 2 2015
+
+// Global constant
+private static final int WALL = 2;
+private static final int PLAYER = 3;
+private static final int BLOCKER = 5;
+private static final int SAFE_ZONE = 7;
+private static final int KEY = 11;
+private static final int OPEN_SPACE = 13;
+
+
+// Global Variables
 int boundaryy = 179;
 int boundaryx = 75;
 int[][] board = new int[200][350];
@@ -50,7 +61,7 @@ void setup() {
   while (rowCounter < 200) { // end 
     colCounter = 0;//start
     while (colCounter < 350) {//end
-      board[rowCounter][colCounter] = 13;
+      board[rowCounter][colCounter] = OPEN_SPACE;
       colCounter += 1;
     }
     rowCounter += 1;
@@ -61,7 +72,7 @@ void setup() {
   while (rowCounter < 200) { // end 
     colCounter = 0;//start
     while (colCounter < 70) {//end
-      board[rowCounter][colCounter] = 7;
+      board[rowCounter][colCounter] = SAFE_ZONE;
       colCounter += 1;
     }
     rowCounter += 1;
@@ -73,7 +84,7 @@ void setup() {
   while (rowCounter < 200) {//end
     colCounter = 280;//start
     while (colCounter < 350) {//end
-      board[rowCounter][colCounter] = 7;
+      board[rowCounter][colCounter] = SAFE_ZONE;
       colCounter += 1;
     }
     rowCounter += 1;
@@ -85,7 +96,7 @@ void setup() {
   while (rowCounter < 110) {//end
     colCounter = 30;//start
     while (colCounter < 50) {//end
-      board[rowCounter][colCounter] = 3;
+      board[rowCounter][colCounter] = PLAYER;
       colCounter += 1;
     }
     rowCounter += 1;
@@ -96,7 +107,7 @@ void setup() {
   while (rowCounter < 20) {//end
     colCounter = 110;//start
     while (colCounter < 130) {//end
-      board[rowCounter][colCounter] = 5;
+      board[rowCounter][colCounter] = BLOCKER * OPEN_SPACE;
       colCounter += 1;
     }
     rowCounter += 1;
@@ -107,7 +118,7 @@ void setup() {
   while (rowCounter < 20) {//end
     colCounter = 150;//start
     while (colCounter < 170) {//end
-      board[rowCounter][colCounter] = 5;
+      board[rowCounter][colCounter] = BLOCKER * OPEN_SPACE;
       colCounter += 1;
     }
     rowCounter += 1;
@@ -118,7 +129,7 @@ void setup() {
   while (rowCounter < 20) {//end
     colCounter = 190;//start
     while (colCounter < 210) {//end
-      board[rowCounter][colCounter] = 5;
+      board[rowCounter][colCounter] = BLOCKER * OPEN_SPACE;
       colCounter += 1;
     }
     rowCounter += 1;
@@ -130,7 +141,7 @@ void setup() {
   while (rowCounter < 20) {//end
     colCounter = 230;//start
     while (colCounter < 250) {//end
-      board[rowCounter][colCounter] = 5;
+      board[rowCounter][colCounter] = BLOCKER * OPEN_SPACE;
       colCounter += 1;
     }
     rowCounter += 1;
@@ -142,7 +153,7 @@ void setup() {
   while (rowCounter < 200) {//end
     colCounter = 130;//start
     while (colCounter < 150) {//end
-      board[rowCounter][colCounter] = 5;
+      board[rowCounter][colCounter] = BLOCKER * OPEN_SPACE;
       colCounter += 1;
     }
     rowCounter += 1;
@@ -154,7 +165,7 @@ void setup() {
   while (rowCounter < 200) {//end
     colCounter = 170;//start
     while (colCounter < 190) {//end
-      board[rowCounter][colCounter] = 5;
+      board[rowCounter][colCounter] = BLOCKER * OPEN_SPACE;
       colCounter += 1;
     }
     rowCounter += 1;
@@ -166,7 +177,7 @@ void setup() {
   while (rowCounter < 200) {//end
     colCounter = 210;//start
     while (colCounter < 230) {//end
-      board[rowCounter][colCounter] = 5;
+      board[rowCounter][colCounter] = BLOCKER * OPEN_SPACE;
       colCounter += 1;
     }
     rowCounter += 1;
@@ -177,7 +188,7 @@ void setup() {
   while (rowCounter < 15) {//end
     colCounter = 170;//start
     while (colCounter < 190) {//end
-      board[rowCounter][colCounter] = 11;
+      board[rowCounter][colCounter] = KEY * OPEN_SPACE;
       colCounter += 1;
     }
     rowCounter += 1;
@@ -200,7 +211,7 @@ void draw() {
   moveBlocker(230, blocker4YSpeed, blocker4Y);
   moveBlocker(130, blocker5YSpeed, blocker5Y);
   moveBlocker(170, blocker6YSpeed, blocker6Y);
-  moveBlocker(170, blocker7YSpeed, blocker7Y);
+  moveBlocker(210, blocker7YSpeed, blocker7Y);
 
   // make the block move
   // down
@@ -303,104 +314,7 @@ void draw() {
     blocker7YSpeed = blocker7YSpeed * -1;
     println("Change Direction");
   }
-  //END 1
-  /*
-    //Start 2
-   rowCounter = 19 + frameCount;//start
-   colCounter = 150;
-   while (colCounter < 170) {//end
-   board[rowCounter][colCounter] = 5;
-   colCounter += 1;
-   }
-   // clear at top
-   rowCounter = -1 + frameCount;//start
-   colCounter = 150;
-   while (colCounter < 170) {//end
-   board[rowCounter][colCounter] = 0;
-   colCounter += 1;
-   }
-   //End 2
-   
-   //Start 3
-   rowCounter = 19 + frameCount;//start
-   colCounter = 190;
-   while (colCounter < 210) {//end
-   board[rowCounter][colCounter] = 5;
-   colCounter += 1;
-   }
-   // clear at top
-   rowCounter = -1 + frameCount;//start
-   colCounter = 190;
-   while (colCounter < 210) {//end
-   board[rowCounter][colCounter] = 0;
-   colCounter += 1;
-   }
-   //END 3
-   
-   //Start 4
-   rowCounter = 19 + frameCount;//start
-   colCounter = 230;
-   while (colCounter < 250) {//end
-   board[rowCounter][colCounter] = 5;
-   colCounter += 1;
-   }
-   // clear at top
-   rowCounter = -1 + frameCount;//start
-   colCounter = 230;
-   while (colCounter < 250) {//end
-   board[rowCounter][colCounter] = 0;
-   colCounter += 1;
-   }
-   //END 4
-   
-   //Start 5
-   rowCounter = 200 - frameCount;//start
-   colCounter = 130;
-   while (colCounter < 150) {//end
-   board[rowCounter][colCounter] = 5;
-   colCounter += 1;
-   }
-   // clear at top
-   rowCounter = 200 - frameCount;//start
-   colCounter = 130;
-   while (colCounter < 150) {//end
-   board[rowCounter][colCounter] = 0;
-   colCounter += 1;
-   }
-   //END 5
-   
-   //Start 6
-   rowCounter = 200 - frameCount;//start
-   colCounter = 170;
-   while (colCounter < 190) {//end
-   board[rowCounter][colCounter] = 5;
-   colCounter += 1;
-   }
-   // clear at top
-   rowCounter = 200 - frameCount;//start
-   colCounter = 170;
-   while (colCounter < 190) {//end
-   board[rowCounter][colCounter] = 0;
-   colCounter += 1;
-   }
-   //END 6
-   
-   //Start 7
-   rowCounter = 200 - frameCount;//start
-   colCounter = 210;
-   while (colCounter < 230) {//end
-   board[rowCounter][colCounter] = 5;
-   colCounter += 1;
-   }
-   // clear at top
-   rowCounter = 200 - frameCount;//start
-   colCounter = 210;
-   while (colCounter < 230) {//end
-   board[rowCounter][colCounter] = 0;
-   colCounter += 1;
-   }
-   //END 7
-   */
+  
   //Draws board
   loadPixels();  
   // Loop through every pixel column
@@ -412,13 +326,13 @@ void draw() {
       int loc = column + row * width;
 
       // Draw the board 
-      if (board[row - 150][column - 75] == 3) { // player
+      if (board[row - 150][column - 75] == PLAYER) { // player
         pixels[loc] = color(0, 80, 90);//red
-      } else if (board[row - 150][column - 75] == 7) { // safe area 
+      } else if (board[row - 150][column - 75] == SAFE_ZONE) { // safe area 
         pixels[loc] = color(60, 80, 90);
-      } else if (board[row - 150][column - 75] == 5 || board[row - 150][column - 75] == 65) { // Blocker
+      } else if (board[row - 150][column - 75] == BLOCKER * OPEN_SPACE || board[row - 150][column - 75] == BLOCKER * KEY * OPEN_SPACE) { // Blocker
         pixels[loc] = color(240, 80, 90);
-      } else if (board[row - 150][column - 75] == 11) { // key
+      } else if (board[row - 150][column - 75] == KEY * OPEN_SPACE) { // key
         pixels[loc] = color(30, 80, 90);
       } else {          
         pixels[loc] = color(0);
@@ -428,61 +342,6 @@ void draw() {
   updatePixels();
 }
 
-
-// //deaths text
-// textSize(32);
-// text("deaths", 170, 30);
-// fill(0, 102, 153);
-
-// //leavel text
-// textSize(32);
-// text("Level", 340, 30);
-// fill(0, 102, 153);
-
-// //Reset 
-// //Button does not work
-// textSize(32);
-// text("Reset", 25, 30);
-// fill(0, 102, 153);
-
-// //rectangle for leavel 1
-// fill(190);
-// rect(boundaryx, 175, 350, 200);
-
-// //start
-// noStroke();
-// fill(300, 250, 100);
-// rect(76, 176, 70, 199);
-// stroke(0);
-
-// //finish
-// noStroke();
-// fill(300, 250, 100);
-// rect(355, 176, 70, 199);
-// stroke(0);
-// //
-// x=x+speed*directionX;
-// y=y+speed*directionY;
-
-// directionX=0;
-// directionY=0;
-
-
-// noStroke();
-// fill (color(222, 22, 22)); 
-// rect (x, y, radius, radius); 
-// stroke(0);
-
-// int all = 0;
-// while (all < 6) {
-//   yPos[all] += yFlip[all];
-//   fill(0);
-//   ellipse(xPos[all], yPos[all], 10, 10);
-//   println("DONE");
-//   all += 1;
-// }
-
-////  
 
 
 void keyPressed()
@@ -543,7 +402,7 @@ void moveBlocker(int colStart, int ySpeed, int y) {
     row = y + 20;//start
     col = colStart;
     while (col < colStart + 20) {//end
-      board[row][col] = board[row][col] * 5;
+      board[row][col] = board[row][col] * BLOCKER;
       col += 1;
     }
     // clear at top
@@ -551,7 +410,7 @@ void moveBlocker(int colStart, int ySpeed, int y) {
     col = colStart;
     println(y);
     while (col < colStart + 20) {//end
-      board[row][col] = 13;
+      board[row][col] = board[row][col] / BLOCKER;
       col += 1;
     }
   } else { // moving up
@@ -561,7 +420,7 @@ void moveBlocker(int colStart, int ySpeed, int y) {
     row = y + 20;//start
     col = colStart;
     while (col < colStart + 20) {//end
-      board[row][col] = 13;
+      board[row][col] = board[row][col] / BLOCKER;
       col += 1;
     }
     // add at top
@@ -569,7 +428,7 @@ void moveBlocker(int colStart, int ySpeed, int y) {
     col = colStart;
     println(y);
     while (col < colStart + 20) {//end
-      board[row][col] = board[row][col] * 5;
+      board[row][col] = board[row][col] * BLOCKER;
       col += 1;
     }
   }
