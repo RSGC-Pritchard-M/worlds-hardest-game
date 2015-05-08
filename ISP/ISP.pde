@@ -19,6 +19,8 @@ int blocker3Y = 0;
 int blocker3YSpeed = 1;
 int blocker4Y = 0;
 int blocker4YSpeed = 1;
+int blocker5Y = 179;
+int blocker5YSpeed = -1;
 
 void setup() {
   // Create a canvas with white background
@@ -165,6 +167,9 @@ void setup() {
     }
     rowCounter += 1;
   }
+  
+
+  
 } // END OF SETUP
 
 //This function runs repeatedly.
@@ -177,10 +182,12 @@ void draw() {
   //Blocker 
   // moving down
   // add to bottom
-  moveBlocker( 20, 110, blocker1YSpeed, blocker1Y);
-  moveBlocker( 20, 150, blocker2YSpeed, blocker2Y);
-  moveBlocker( 20, 190, blocker3YSpeed, blocker3Y);
-  moveBlocker( 20, 230, blocker4YSpeed, blocker4Y);
+  moveBlocker(110, blocker1YSpeed, blocker1Y);
+  moveBlocker(150, blocker2YSpeed, blocker2Y);
+  moveBlocker(190, blocker3YSpeed, blocker3Y);
+  moveBlocker(230, blocker4YSpeed, blocker4Y);
+  moveBlocker(130, blocker5YSpeed, blocker5Y);
+  
 
   // make the block move
   // down
@@ -251,13 +258,23 @@ void draw() {
   //update blocker 4 vertical position
   //update acording to speed
   blocker4Y = blocker4Y + blocker4YSpeed;
-  // println(blocker3Y);
+  // println(blocker4Y);
   if (blocker4Y > (158 + 20) || blocker4Y < (0)) {
     blocker4Y = blocker4Y - blocker4YSpeed;
     blocker4YSpeed = blocker4YSpeed * -1;
     println("Change Direction");
   }
-
+  //update blocker 5 vertical position
+  //update acording to speed
+  
+  
+  blocker5Y = blocker5Y + blocker5YSpeed;
+  // println(blocker5Y);
+  if (blocker5Y > (158 + 20) || blocker5Y < (0)) {
+    blocker5Y = blocker5Y - blocker5YSpeed;
+    blocker5YSpeed = blocker5YSpeed * -1;
+    println("Change Direction");
+  }
 
   //END 1
   /*
@@ -487,7 +504,7 @@ void keyPressed()
 }
 
 // PURPOSE: move a blocker on the screen – currently supports moving up and down
-void moveBlocker(int rowStart, int colStart, int ySpeed, int y) {
+void moveBlocker(int colStart, int ySpeed, int y) {
 
   int row = 0;
   int col = 0; 
@@ -495,8 +512,8 @@ void moveBlocker(int rowStart, int colStart, int ySpeed, int y) {
   // make the block move
   // down
   if (ySpeed > 0) {
-    println("moving down");
-    row = rowStart + y;//start
+   // println("moving down");
+    row = y + 20;//start
     col = colStart;
     while (col < colStart + 20) {//end
       board[row][col] = 5;
@@ -511,10 +528,10 @@ void moveBlocker(int rowStart, int colStart, int ySpeed, int y) {
       col += 1;
     }
   } else { // moving up
-    println("moving up");
+    //println("moving up");
 
     // clear at bottom
-    row = rowStart + y;//start
+    row = y + 20;//start
     col = colStart;
     while (col < colStart + 20) {//end
       board[row][col] = 0;
