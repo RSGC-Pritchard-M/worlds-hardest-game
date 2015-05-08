@@ -30,17 +30,19 @@ int blocker3Y = 0;
 int blocker3YSpeed = 1;
 int blocker4Y = 0;
 int blocker4YSpeed = 1;
-int blocker5Y = 179;
+int blocker5Y = 178;
 int blocker5YSpeed = -1;
-int blocker6Y = 179;
+int blocker6Y = 178;
 int blocker6YSpeed = -1;
-int blocker7Y = 179;
+int blocker7Y = 178;
 int blocker7YSpeed = -1;
 
 void setup() {
   // Create a canvas with white background
   size(500, 500);
   background(150);
+
+frameRate(5);
 
   // set color mode
   colorMode(HSB, 360, 100, 100);
@@ -213,44 +215,7 @@ void draw() {
   moveBlocker(170, blocker6YSpeed, blocker6Y);
   moveBlocker(210, blocker7YSpeed, blocker7Y);
 
-  // make the block move
-  // down
 
-  // if (blocker1YSpeed > 0) {
-  //   println("moving down");
-  //   rowCounter = 20 + blocker1Y;//start
-  //   colCounter = 110;
-  //   while (colCounter < 130) {//end
-  //     board[rowCounter][colCounter] = 5;
-  //     colCounter += 1;
-  //   }
-  //   // clear at top
-  //   rowCounter = blocker1Y;//start
-  //   colCounter = 110;
-  //   println(blocker1Y);
-  //   while (colCounter < 130) {//end
-  //     board[rowCounter][colCounter] = 0;
-  //     colCounter += 1;
-  //   }
-  // } else { // moving up
-  //   println("moving up");
-
-  //   // clear at bottom
-  //   rowCounter = 20 + blocker1Y;//start
-  //   colCounter = 110;
-  //   while (colCounter < 130) {//end
-  //     board[rowCounter][colCounter] = 0;
-  //     colCounter += 1;
-  //   }
-  //   // add at top
-  //   rowCounter = blocker1Y;//start
-  //   colCounter = 110;
-  //   println(blocker1Y);
-  //   while (colCounter < 130) {//end
-  //     board[rowCounter][colCounter] = 5;
-  //     colCounter += 1;
-  //   }
-  // }
   //update blocker 1 vertical position
   //update acording to speed
   blocker1Y = blocker1Y + blocker1YSpeed;
@@ -417,7 +382,7 @@ void moveBlocker(int colStart, int ySpeed, int y) {
     //println("moving up");
 
     // clear at bottom
-    row = y + 20;//start
+    row = y + 21;//start
     col = colStart;
     while (col < colStart + 20) {//end
       board[row][col] = board[row][col] / BLOCKER;
