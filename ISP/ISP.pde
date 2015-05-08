@@ -15,6 +15,10 @@ int blocker1Y = 0;
 int blocker1YSpeed = 1;
 int blocker2Y = 0;
 int blocker2YSpeed = 1;
+int blocker3Y = 0;
+int blocker3YSpeed = 1;
+int blocker4Y = 0;
+int blocker4YSpeed = 1;
 
 void setup() {
   // Create a canvas with white background
@@ -175,10 +179,12 @@ void draw() {
   // add to bottom
   moveBlocker( 20, 110, blocker1YSpeed, blocker1Y);
   moveBlocker( 20, 150, blocker2YSpeed, blocker2Y);
+  moveBlocker( 20, 190, blocker3YSpeed, blocker3Y);
+  moveBlocker( 20, 230, blocker4YSpeed, blocker4Y);
 
   // make the block move
   // down
-  
+
   // if (blocker1YSpeed > 0) {
   //   println("moving down");
   //   rowCounter = 20 + blocker1Y;//start
@@ -233,7 +239,24 @@ void draw() {
     blocker2YSpeed = blocker2YSpeed * -1;
     println("Change Direction");
   }
-
+  //update blocker 3 vertical position
+  //update acording to speed
+  blocker3Y = blocker3Y + blocker3YSpeed;
+  // println(blocker3Y);
+  if (blocker3Y > (158 + 20) || blocker3Y < (0)) {
+    blocker3Y = blocker3Y - blocker3YSpeed;
+    blocker3YSpeed = blocker3YSpeed * -1;
+    println("Change Direction");
+  }
+  //update blocker 4 vertical position
+  //update acording to speed
+  blocker4Y = blocker4Y + blocker4YSpeed;
+  // println(blocker3Y);
+  if (blocker4Y > (158 + 20) || blocker4Y < (0)) {
+    blocker4Y = blocker4Y - blocker4YSpeed;
+    blocker4YSpeed = blocker4YSpeed * -1;
+    println("Change Direction");
+  }
 
 
   //END 1
@@ -465,10 +488,10 @@ void keyPressed()
 
 // PURPOSE: move a blocker on the screen – currently supports moving up and down
 void moveBlocker(int rowStart, int colStart, int ySpeed, int y) {
-  
+
   int row = 0;
   int col = 0; 
-  
+
   // make the block move
   // down
   if (ySpeed > 0) {
