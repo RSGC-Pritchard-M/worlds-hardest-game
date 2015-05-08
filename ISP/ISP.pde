@@ -173,7 +173,9 @@ void draw() {
   // add to bottom
 
   // make the block move
-  if (blocker1Y > 0) {
+  // down
+  if (blocker1YSpeed > 0) {
+    println("moving down");
     rowCounter = 20 + blocker1Y;//start
     colCounter = 110;
     while (colCounter < 130) {//end
@@ -188,14 +190,17 @@ void draw() {
       board[rowCounter][colCounter] = 0;
       colCounter += 1;
     }
-  } else {
+  } else { // moving up
+      println("moving up");
+
+    // clear at bottom
     rowCounter = 20 + blocker1Y;//start
     colCounter = 110;
     while (colCounter < 130) {//end
       board[rowCounter][colCounter] = 0;
       colCounter += 1;
     }
-    // clear at top
+    // add at top
     rowCounter = blocker1Y;//start
     colCounter = 110;
     println(blocker1Y);
@@ -203,7 +208,6 @@ void draw() {
       board[rowCounter][colCounter] = 5;
       colCounter += 1;
     }
-    
   }
   //update blocker 1 vertical position
   //update acording to speed
@@ -214,6 +218,7 @@ void draw() {
     blocker1YSpeed = blocker1YSpeed * -1;
     println("Change Direction");
   }
+
 
   //END 1
   /*
