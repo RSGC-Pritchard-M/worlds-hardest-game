@@ -21,6 +21,10 @@ int blocker4Y = 0;
 int blocker4YSpeed = 1;
 int blocker5Y = 179;
 int blocker5YSpeed = -1;
+int blocker6Y = 179;
+int blocker6YSpeed = -1;
+int blocker7Y = 179;
+int blocker7YSpeed = -1;
 
 void setup() {
   // Create a canvas with white background
@@ -40,6 +44,17 @@ void setup() {
   //     yFlip[all] = 1;
   //   }
   // }
+
+ //draw background
+  rowCounter = 0; // start
+  while (rowCounter < 200) { // end 
+    colCounter = 0;//start
+    while (colCounter < 350) {//end
+      board[rowCounter][colCounter] = 13;
+      colCounter += 1;
+    }
+    rowCounter += 1;
+  }
 
   //Start safe area
   rowCounter = 0; // start
@@ -162,14 +177,11 @@ void setup() {
   while (rowCounter < 15) {//end
     colCounter = 170;//start
     while (colCounter < 190) {//end
-      board[rowCounter][colCounter] = 9;
+      board[rowCounter][colCounter] = 11;
       colCounter += 1;
     }
     rowCounter += 1;
   }
-  
-
-  
 } // END OF SETUP
 
 //This function runs repeatedly.
@@ -187,7 +199,8 @@ void draw() {
   moveBlocker(190, blocker3YSpeed, blocker3Y);
   moveBlocker(230, blocker4YSpeed, blocker4Y);
   moveBlocker(130, blocker5YSpeed, blocker5Y);
-  
+  moveBlocker(170, blocker6YSpeed, blocker6Y);
+  moveBlocker(170, blocker7YSpeed, blocker7Y);
 
   // make the block move
   // down
@@ -266,8 +279,8 @@ void draw() {
   }
   //update blocker 5 vertical position
   //update acording to speed
-  
-  
+
+
   blocker5Y = blocker5Y + blocker5YSpeed;
   // println(blocker5Y);
   if (blocker5Y > (158 + 20) || blocker5Y < (0)) {
@@ -276,6 +289,20 @@ void draw() {
     println("Change Direction");
   }
 
+  blocker6Y = blocker6Y + blocker6YSpeed;
+  // println(blocker5Y);
+  if (blocker6Y > (158 + 20) || blocker6Y < (0)) {
+    blocker6Y = blocker6Y - blocker6YSpeed;
+    blocker6YSpeed = blocker6YSpeed * -1;
+    println("Change Direction");
+  }
+   blocker7Y = blocker7Y + blocker7YSpeed;
+  // println(blocker5Y);
+  if (blocker7Y > (158 + 20) || blocker7Y < (0)) {
+    blocker7Y = blocker7Y - blocker7YSpeed;
+    blocker7YSpeed = blocker7YSpeed * -1;
+    println("Change Direction");
+  }
   //END 1
   /*
     //Start 2
@@ -389,11 +416,11 @@ void draw() {
         pixels[loc] = color(0, 80, 90);//red
       } else if (board[row - 150][column - 75] == 7) { // safe area 
         pixels[loc] = color(60, 80, 90);
-      } else if (board[row - 150][column - 75] == 5) { // If we are an even column
+      } else if (board[row - 150][column - 75] == 5 || board[row - 150][column - 75] == 65) { // Blocker
         pixels[loc] = color(240, 80, 90);
-      } else if (board[row - 150][column - 75] == 9) { // If we are an even column
+      } else if (board[row - 150][column - 75] == 11) { // key
         pixels[loc] = color(30, 80, 90);
-      } else {          // If we are an odd column
+      } else {          
         pixels[loc] = color(0);
       }
     }
@@ -512,11 +539,11 @@ void moveBlocker(int colStart, int ySpeed, int y) {
   // make the block move
   // down
   if (ySpeed > 0) {
-   // println("moving down");
+    // println("moving down");
     row = y + 20;//start
     col = colStart;
     while (col < colStart + 20) {//end
-      board[row][col] = 5;
+      board[row][col] = board[row][col] * 5;
       col += 1;
     }
     // clear at top
@@ -524,7 +551,7 @@ void moveBlocker(int colStart, int ySpeed, int y) {
     col = colStart;
     println(y);
     while (col < colStart + 20) {//end
-      board[row][col] = 0;
+      board[row][col] = 13;
       col += 1;
     }
   } else { // moving up
@@ -534,7 +561,7 @@ void moveBlocker(int colStart, int ySpeed, int y) {
     row = y + 20;//start
     col = colStart;
     while (col < colStart + 20) {//end
-      board[row][col] = 0;
+      board[row][col] = 13;
       col += 1;
     }
     // add at top
@@ -542,7 +569,7 @@ void moveBlocker(int colStart, int ySpeed, int y) {
     col = colStart;
     println(y);
     while (col < colStart + 20) {//end
-      board[row][col] = 5;
+      board[row][col] = board[row][col] * 5;
       col += 1;
     }
   }
