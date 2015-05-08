@@ -2,13 +2,16 @@
 //ISP V1
 //April 2 2015
 
-// Global constant
+// Global constants
 private static final int WALL = 2;
 private static final int PLAYER = 3;
 private static final int BLOCKER = 5;
 private static final int SAFE_ZONE = 7;
 private static final int KEY = 11;
 private static final int OPEN_SPACE = 13;
+
+private static final int PLAYER_WIDTH = 20;
+private static final int PLAYER_HEIGHT = 20;
 
 
 // Global Variables
@@ -21,7 +24,9 @@ int [] yFlip = new int[6];
 int rowCounter;
 int colCounter;
 int radius = 15, directionX = 1, directionY =0;
-float x= 100, y=275, speed= 3;
+// Player current position and speed
+int playerX = 30, playerY = 90, playerSpeed = 3;
+// blocker position and speeds
 int blocker1Y = 0;
 int blocker1YSpeed = 1;
 int blocker2Y = 0;
@@ -58,7 +63,7 @@ void setup() {
   //   }
   // }
 
- //draw background
+  //draw background
   rowCounter = 0; // start
   while (rowCounter < 200) { // end 
     colCounter = 0;//start
@@ -74,7 +79,7 @@ void setup() {
   while (rowCounter < 200) { // end 
     colCounter = 0;//start
     while (colCounter < 70) {//end
-      board[rowCounter][colCounter] = SAFE_ZONE;
+      board[rowCounter][colCounter] = SAFE_ZONE * OPEN_SPACE;
       colCounter += 1;
     }
     rowCounter += 1;
@@ -86,19 +91,18 @@ void setup() {
   while (rowCounter < 200) {//end
     colCounter = 280;//start
     while (colCounter < 350) {//end
-      board[rowCounter][colCounter] = SAFE_ZONE;
+      board[rowCounter][colCounter] = SAFE_ZONE * OPEN_SPACE;
       colCounter += 1;
     }
     rowCounter += 1;
   }
 
   //Player
-
-  rowCounter = 90;//start
-  while (rowCounter < 110) {//end
-    colCounter = 30;//start
-    while (colCounter < 50) {//end
-      board[rowCounter][colCounter] = PLAYER;
+  rowCounter = playerY;//start
+  while (rowCounter < playerY + PLAYER_HEIGHT) {//end
+    colCounter = playerX;//start
+    while (colCounter < playerX + PLAYER_WIDTH) {//end
+      board[rowCounter][colCounter] = PLAYER * OPEN_SPACE * SAFE_ZONE;
       colCounter += 1;
     }
     rowCounter += 1;
@@ -272,14 +276,14 @@ void draw() {
     blocker6YSpeed = blocker6YSpeed * -1;
     println("Change Direction");
   }
-   blocker7Y = blocker7Y + blocker7YSpeed;
+  blocker7Y = blocker7Y + blocker7YSpeed;
   // println(blocker5Y);
   if (blocker7Y > (158 + 20) || blocker7Y < (0)) {
     blocker7Y = blocker7Y - blocker7YSpeed;
     blocker7YSpeed = blocker7YSpeed * -1;
     println("Change Direction");
   }
-  
+
   //Draws board
   loadPixels();  
   // Loop through every pixel column
@@ -291,9 +295,9 @@ void draw() {
       int loc = column + row * width;
 
       // Draw the board 
-      if (board[row - 150][column - 75] == PLAYER) { // player
+      if (board[row - 150][column - 75] == PLAYER || board[row - 150][column - 75] == PLAYER * OPEN_SPACE * SAFE_ZONE) { // player
         pixels[loc] = color(0, 80, 90);//red
-      } else if (board[row - 150][column - 75] == SAFE_ZONE) { // safe area 
+      } else if (board[row - 150][column - 75] == SAFE_ZONE * OPEN_SPACE) { // safe area 
         pixels[loc] = color(60, 80, 90);
       } else if (board[row - 150][column - 75] == BLOCKER * OPEN_SPACE || board[row - 150][column - 75] == BLOCKER * KEY * OPEN_SPACE) { // Blocker
         pixels[loc] = color(240, 80, 90);
@@ -311,48 +315,40 @@ void draw() {
 
 void keyPressed()
 {
-  ////    if (key == CODED)
-  // {
-  //   if (keyCode == LEFT)
-  //   {
-  //     //if (directionX>0) { 
-  //     directionX=-1;
-  //     directionY=0;
-  //     if (x < boundaryx + 5) {
-  //       x = 79;
-  //     }
-  //     //}
-  //   } else if (keyCode == RIGHT)
-  //   {
-  //     //if (directionX<0) {  
-  //     directionX=1;
-  //     directionY=0;
-  //     if (x > boundaryx + 350 - 17) {
-  //       x = boundaryx + 350 - 17;
-  //     }
-  //   } else if (keyCode == UP)
-  //   {
-  //     //if (directionY<0) {
-  //     directionY=-1;
-  //     directionX=0;
-  //     if (y < boundaryy + 5) {
-  //       y = 179;
-  //     }
-  //     //}
-  //   } else if (keyCode == DOWN)
-  //   {
-  //     //if (directionY<0) { 
-  //     directionY=1;
-  //     directionX=0;
-  //     println("y is: " + y);
-  //     println("boundaryy is: " + boundaryy);
-  //     if (y > boundaryy + 180 - 2) {
-  //       y = boundaryy + 180 - 2;
-  //       //}
-  //     }
-  //   }
-  // }
+  //    if (key == CODED)
+  {
+    if (keyCode == LEFT)
+    {
+    } else if (keyCode == RIGHT)
+    {
+    } else if (keyCode == UP)
+    {
+    } else if (keyCode == DOWN)
+    {
+
+
+      //Updete players position
+      playerY += 1;
+      
+      // add at bottom
+      // println("moving down");
+      int row = playerY + PLAYER_HEIGHT + 1;//start
+      int col = playerX;
+      while (col < playerX + PLAYER_WIDTH) {//end
+        board[row][col] = board[row][col] * PLAYER;
+        col += 1;
+      }
+      // clear at top
+      row = playerY;//start
+      col = playerX;
+      while (col < playerX + PLAYER_WIDTH) {//end
+        board[row][col] = board[row][col] / PLAYER;
+        col += 1;
+      }
+    }
+  }
 }
+
 
 // PURPOSE: move a blocker on the screen – currently supports moving up and down
 void moveBlocker(int colStart, int ySpeed, int y) {
@@ -363,7 +359,7 @@ void moveBlocker(int colStart, int ySpeed, int y) {
   // make the block move
   // down
   if (ySpeed > 0) {
-    // clear at bottom
+    // add at bottom
     // println("moving down");
     row = y + 21;//start
     col = colStart;
