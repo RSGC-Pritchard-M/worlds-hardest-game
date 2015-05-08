@@ -322,14 +322,32 @@ void keyPressed()
     } else if (keyCode == RIGHT)
     {
     } else if (keyCode == UP)
-    {
+    {  
+      //Moving up
+      playerY -= 1;
+
+      // add at bottom
+      // println("moving down");
+      int row = playerY + PLAYER_HEIGHT - 1;//start
+      int col = playerX;
+      while (col < playerX + PLAYER_WIDTH) {//end
+        board[row][col] = board[row][col] / PLAYER;
+        col += 1;
+      }
+      // clear at top
+      row = playerY;//start
+      col = playerX;
+      while (col < playerX + PLAYER_WIDTH) {//end
+        board[row][col] = board[row][col] * PLAYER;
+        col += 1;
+      }
     } else if (keyCode == DOWN)
     {
 
 
       //Updete players position
       playerY += 1;
-      
+
       // add at bottom
       // println("moving down");
       int row = playerY + PLAYER_HEIGHT + 1;//start
