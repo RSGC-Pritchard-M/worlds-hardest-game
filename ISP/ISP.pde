@@ -10,8 +10,8 @@ private static final int SAFE_ZONE = 7;
 private static final int KEY = 11;
 private static final int OPEN_SPACE = 13;
 
-private static final int PLAYER_WIDTH = 20;
-private static final int PLAYER_HEIGHT = 20;
+private static final int PLAYER_WIDTH = 16;
+private static final int PLAYER_HEIGHT = 16;
 
 
 // Global Variables
@@ -25,7 +25,7 @@ int rowCounter;
 int colCounter;
 int radius = 15, directionX = 1, directionY =0;
 // Player current position and speed
-int playerX = 30, playerY = 90, playerSpeed = 3;
+int playerX = 30, playerY = 90, playerSpeed = 7;
 // blocker position and speeds
 int blocker1Y = 0;
 int blocker1YSpeed = 1;
@@ -206,8 +206,6 @@ void draw() {
   // Clear prior screen
   background(150);
 
-
-
   //Blocker 
   // moving down
   // add to bottom
@@ -295,7 +293,7 @@ void draw() {
       int loc = column + row * width;
 
       // Draw the board 
-      if (board[row - 150][column - 75] == PLAYER || board[row - 150][column - 75] == PLAYER * OPEN_SPACE * SAFE_ZONE) { // player
+      if (board[row - 150][column - 75] == PLAYER || board[row - 150][column - 75] == PLAYER * OPEN_SPACE|| board[row - 150][column - 75] == PLAYER * OPEN_SPACE * SAFE_ZONE) { // player
         pixels[loc] = color(0, 80, 90);//red
       } else if (board[row - 150][column - 75] == SAFE_ZONE * OPEN_SPACE) { // safe area 
         pixels[loc] = color(60, 80, 90);
@@ -309,8 +307,24 @@ void draw() {
     }
   }
   updatePixels();
-}
 
+
+  //checking for colisions
+  int col = 0;
+  while (col < 350) {
+    int row =0;
+    while (row < 200) {
+      if (board[row][col] % PLAYER == 0 && board[row][col] % BLOCKER == 0) {
+        println("row is: " + row);
+        println("col is: " + col);
+        noLoop();
+      }
+      row += 1;
+    }
+    col +=1;
+  }
+  
+}
 
 
 void keyPressed()
@@ -319,50 +333,108 @@ void keyPressed()
   {
     if (keyCode == LEFT)
     {
+
+
+      //Keeps player on screen
+      if (playerX > 1) {
+
+       
+        // add at left
+        // println("moving down");
+        int row = playerY;//start
+        int col = playerX - 1;
+        while (row < playerY + PLAYER_HEIGHT) {//end
+          board[row][col] = board[row][col] * PLAYER;
+          row += 1;
+        }
+        // clear on right
+        row = playerY;//start
+        col = playerX + PLAYER_WIDTH -1;
+        while (row < playerY + PLAYER_HEIGHT) {//end
+          board[row][col] = board[row][col] / PLAYER;
+          row += 1;
+        }
+      }
+      //After updating board chage poition
+      playerX -= 1;
     } else if (keyCode == RIGHT)
     {
+
+      //Keeps player on screen
+      if (playerX < 332) {
+
+
+
+        // add at right
+        // println("moving down");
+        int row = playerY;//start
+        int col = playerX + PLAYER_WIDTH;
+        while (row < playerY + PLAYER_HEIGHT) {//end
+          board[row][col] = board[row][col] * PLAYER;
+          row += 1;
+        }
+        // clear on left
+        row = playerY;//start
+        col = playerX;
+        while (row < playerY + PLAYER_HEIGHT) {//end
+          board[row][col] = board[row][col] / PLAYER;
+          row += 1;
+        }
+        
+        // Update players position after array
+        playerX += 1;
+      }
     } else if (keyCode == UP)
     {  
-      //Moving up
-      playerY -= 1;
 
-      // add at bottom
-      // println("moving down");
-      int row = playerY + PLAYER_HEIGHT - 1;//start
-      int col = playerX;
-      while (col < playerX + PLAYER_WIDTH) {//end
-        board[row][col] = board[row][col] / PLAYER;
-        col += 1;
-      }
-      // clear at top
-      row = playerY;//start
-      col = playerX;
-      while (col < playerX + PLAYER_WIDTH) {//end
-        board[row][col] = board[row][col] * PLAYER;
-        col += 1;
+      //Keeps player on screen
+      if (playerY > 0) {
+
+        // add at top
+        // println("moving down");
+        int row = playerY - 1;//start
+        int col = playerX;
+        while (col < playerX + PLAYER_WIDTH) {//end
+          board[row][col] = board[row][col] * PLAYER;
+          col += 1;
+        }
+        // clear at bottom
+        row = playerY + PLAYER_HEIGHT - 1;//start
+        col = playerX;
+        while (col < playerX + PLAYER_WIDTH) {//end
+          board[row][col] = board[row][col] / PLAYER;
+          col += 1;
+        }
+        //Update after board
+        playerY -= 1;
       }
     } else if (keyCode == DOWN)
     {
 
+      if (playerY < 182) {
 
-      //Updete players position
-      playerY += 1;
 
-      // add at bottom
-      // println("moving down");
-      int row = playerY + PLAYER_HEIGHT + 1;//start
-      int col = playerX;
-      while (col < playerX + PLAYER_WIDTH) {//end
-        board[row][col] = board[row][col] * PLAYER;
-        col += 1;
+
+
+        // add at bottom
+        // println("moving down");
+        int row = playerY + PLAYER_HEIGHT;//start
+        int col = playerX;
+        while (col < playerX + PLAYER_WIDTH) {//end
+          board[row][col] = board[row][col] * PLAYER;
+          col += 1;
+        }
+        // clear at top
+        row = playerY;//start
+        col = playerX;
+        while (col < playerX + PLAYER_WIDTH) {//end
+          board[row][col] = board[row][col] / PLAYER;
+          col += 1;
+        }
+        //Update after board refreshed
+        playerY += 1;
       }
-      // clear at top
-      row = playerY;//start
-      col = playerX;
-      while (col < playerX + PLAYER_WIDTH) {//end
-        board[row][col] = board[row][col] / PLAYER;
-        col += 1;
-      }
+      
     }
   }
 }
